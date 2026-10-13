@@ -24,3 +24,42 @@
 Должна быть (только) онлайн-оплата. 
 Должна быть рекомендательная система (покупатель что-то покупает, что-то лайкает. Все эти дейсвтвия фиксируются для создания рекомендаций).
 
+# Диаграмма в PlantUML
+
+@startuml
+
+left to right direction
+
+actor "Покупатель" as fc
+actor "МИС Ветклиники" as MIS
+
+rectangle {
+ usecase "Поиск товаров" as UC0
+ usecase "Просмотр каталога товаров" as UC1
+ usecase "Донаты в приюты" as UC2
+ usecase "Онлайн-оплата товаров" as UC3
+ usecase "Добавление в избранное" as UC4
+ usecase "Получение товара" as UC5
+ usecase "Самовывоз" as UC5.1
+ usecase "Доставка" as UC5.2
+ usecase "Запись в ветклинику" as UC6
+ usecase "Запись на услуги для животных" as UC7
+ usecase "Покупка животных" as UC8
+}
+
+fc --> UC0
+fc --> UC1
+fc --> UC2
+fc --> UC3
+fc --> UC4
+fc --> UC5
+fc --> UC6
+fc --> UC7
+fc --> UC8
+
+UC0 --> UC1
+UC5 --> UC5.1
+UC5 --> UC5.2
+UC6 --> MIS
+
+@enduml
