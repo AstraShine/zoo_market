@@ -1,4 +1,5 @@
 @startuml
+
 left to right direction
 
 actor "Покупатель" as fc
@@ -6,31 +7,22 @@ actor "МИС Ветклиники" as MIS
 actor "Курьерская служба" as Courier
 actor "Приют" as Shelter
 actor "Заводчик" as Breeder
-actor "Система 1С" as OneC
-actor "Платёжный шлюз" as Pay
+actor "Банк" as Pay
 
-rectangle "ZooMarket" {
+rectangle {
   usecase "Поиск товаров" as UC0
   usecase "Просмотр каталога товаров" as UC1
   usecase "Донаты в приюты" as UC2
   usecase "Онлайн-оплата товаров" as UC3
   usecase "Добавление в избранное" as UC4
   usecase "Получение товара" as UC5
-  usecase "Самовывоз" as UC5_1
-  usecase "Доставка" as UC5_2
+  usecase "Самовывоз" as UC5.1
+  usecase "Доставка" as UC5.2
   usecase "Запись в ветклинику" as UC6
   usecase "Запись на услуги для животных" as UC7
   usecase "Покупка животных" as UC8
+  }
 
-  usecase "Идентификация по номеру телефона" as UC9
-  usecase "Получение уведомлений (push/SMS)" as UC10
-  usecase "Система лояльности" as UC11
-  usecase "Рекомендации товаров" as UC12
-  usecase "Оформление заказа" as UC13
-  usecase "Выгрузка каталога из 1С" as UC14
-}
-
-' --- Покупатель ---
 fc --> UC0
 fc --> UC1
 fc --> UC2
@@ -40,29 +32,15 @@ fc --> UC5
 fc --> UC6
 fc --> UC7
 fc --> UC8
-fc --> UC13
 
-' --- Связи между вариантами использования ---
-UC0 --> UC1 : <<include>>
-UC5 --> UC5_1
-UC5 --> UC5_2
+UC0 --> UC1
+UC5 --> UC5.1
+UC5 --> UC5.2
 UC6 --> MIS
-UC13 --> UC3 : <<include>>
-UC13 --> UC9 : <<include>>
-UC13 --> UC11 : <<include>>
-UC1 --> UC12 : <<extend>>
-UC4 --> UC12 : <<include>>
 UC3 --> Pay
-UC5_2 --> Courier
+UC5.2 --> Courier
 
-' --- Внешние системы и актёры ---
 UC2 --> Shelter
 UC8 --> Breeder
-UC14 --> OneC
 
-' --- Уведомления ---
-UC13 --> UC10 : <<include>>
-UC6 --> UC10 : <<include>>
-UC2 --> UC10 : <<include>>
-
-@enduml 
+@enduml
