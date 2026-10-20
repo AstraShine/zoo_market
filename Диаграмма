@@ -7,9 +7,10 @@ actor "МИС Ветклиники" as MIS
 actor "Курьерская служба" as Courier
 actor "Приют" as Shelter
 actor "Заводчик" as Breeder
+actor "Система 1С" as OneC
 actor "Банк" as Pay
 
-rectangle {
+rectangle "ZooMarket" {
   usecase "Поиск товаров" as UC0
   usecase "Просмотр каталога товаров" as UC1
   usecase "Донаты в приюты" as UC2
@@ -21,26 +22,45 @@ rectangle {
   usecase "Запись в ветклинику" as UC6
   usecase "Запись на услуги для животных" as UC7
   usecase "Покупка животных" as UC8
-  }
 
+  usecase "Рекомендации товаров" as UC9
+  usecase "Оформление заказа" as UC10
+  usecase "Выгрузка каталога из 1С" as UC11
+}
+
+' --- Покупатель ---
 fc --> UC0
 fc --> UC1
 fc --> UC2
-fc --> UC3
 fc --> UC4
 fc --> UC5
 fc --> UC6
 fc --> UC7
 fc --> UC8
+fc --> UC10
 
-UC0 --> UC1
+' --- Связи между вариантами использования ---
+UC0 --> UC1 
+UC0 --> UC4
 UC5 --> UC5.1
 UC5 --> UC5.2
 UC6 --> MIS
+UC10 --> UC3
+UC6 --> UC3
+UC7 --> UC3
+UC8 --> UC3
+UC0 --> UC9
+UC4 --> UC9
+UC9 --> UC1
+UC1 <- UC11
+UC5 <- UC10
+
+' --- Внешние системы и актёры ---
+UC2 --> Shelter
+UC8 --> Breeder
+UC11 --> OneC
 UC3 --> Pay
 UC5.2 --> Courier
 
-UC2 --> Shelter
-UC8 --> Breeder
 
-@enduml
+@enduml 
