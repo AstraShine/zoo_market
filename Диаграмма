@@ -3,19 +3,28 @@
 left to right direction
 
 actor "Покупатель" as fc
+together {
 actor "МИС Ветклиники" as MIS
 actor "Курьерская служба" as Courier
 actor "Приют" as Shelter
 actor "Заводчик" as Breeder
 actor "Система 1С" as OneC
 actor "Банк" as Pay
+}
 
 rectangle "ZooMarket" {
+  together {
   usecase "Поиск товаров" as UC0
   usecase "Просмотр каталога товаров" as UC1
+  usecase "Добавление в избранное" as UC4
+  usecase "Рекомендации товаров" as UC9
+  usecase "Оформление заказа" as UC10
+  usecase "Выгрузка каталога из 1С" as UC11
+  }
+
   usecase "Донаты в приюты" as UC2
   usecase "Онлайн-оплата товаров" as UC3
-  usecase "Добавление в избранное" as UC4
+  
   usecase "Получение товара" as UC5
   usecase "Самовывоз" as UC5.1
   usecase "Доставка" as UC5.2
@@ -23,9 +32,6 @@ rectangle "ZooMarket" {
   usecase "Запись на услуги для животных" as UC7
   usecase "Покупка животных" as UC8
 
-  usecase "Рекомендации товаров" as UC9
-  usecase "Оформление заказа" as UC10
-  usecase "Выгрузка каталога из 1С" as UC11
 }
 
 ' --- Покупатель ---
@@ -41,10 +47,9 @@ fc --> UC10
 
 ' --- Связи между вариантами использования ---
 UC0 --> UC1 
-UC0 --> UC4
+UC10 --> UC4
 UC5 --> UC5.1
 UC5 --> UC5.2
-UC6 --> MIS
 UC10 --> UC3
 UC6 --> UC3
 UC7 --> UC3
@@ -56,6 +61,7 @@ UC1 <- UC11
 UC5 <- UC10
 
 ' --- Внешние системы и актёры ---
+UC6 --> MIS
 UC2 --> Shelter
 UC8 --> Breeder
 UC11 --> OneC
