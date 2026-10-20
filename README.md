@@ -66,4 +66,4 @@ ZooMarket — интернет-магазин зоотоваров, которы
 
 # Диаграмма вариантов использования
 
-![Use Case Diagram](Диаграмма.png)
+![Use Case Diagram](Diagramm.png)
