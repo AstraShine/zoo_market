@@ -70,7 +70,7 @@ ZooMarket — интернет-магазин зоотоваров, которы
 
 # OpenApi
 
-```json
+```yaml
 openapi: 3.0.4
 info: 
   title: Petshop
